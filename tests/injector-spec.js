@@ -25,17 +25,35 @@ describe("Injector tests", () => {
     var injector = new Injector({});
     expect(injector).instanceof(Injector);
     injector.add("newKey", "newValue");
-    expect(injector.injectorDependencies["newKey"]).instanceof(Optional);
-    expect(injector.injectorDependencies["newKey"].get()).to.equal("newValue");
+    expect(injector.localDependencies["newKey"]).instanceof(Optional);
+    expect(injector.localDependencies["newKey"].get()).to.equal("newValue");
   })
 
   it("should addOrUpdate property", () => {
     var injector = new Injector({});
     expect(injector).instanceof(Injector);
     injector.addOrUpdate("newKey", "newValue");
+    expect(injector.localDependencies["newKey"]).instanceof(Optional);
+    expect(injector.localDependencies["newKey"].get()).to.equal("newValue");
+    injector.addOrUpdate("newKey", "updateValue");
+    expect(injector.localDependencies["newKey"].get()).to.equal("updateValue");
+  })
+
+  it("should addGlobal property", () => {
+    var injector = new Injector({});
+    expect(injector).instanceof(Injector);
+    injector.addGlobal("newKey", "newValue");
     expect(injector.injectorDependencies["newKey"]).instanceof(Optional);
     expect(injector.injectorDependencies["newKey"].get()).to.equal("newValue");
-    injector.addOrUpdate("newKey", "updateValue");
+  })
+
+  it("should addOrUpdateGlobal property", () => {
+    var injector = new Injector({});
+    expect(injector).instanceof(Injector);
+    injector.addOrUpdateGlobal("newKey", "newValue");
+    expect(injector.injectorDependencies["newKey"]).instanceof(Optional);
+    expect(injector.injectorDependencies["newKey"].get()).to.equal("newValue");
+    injector.addOrUpdateGlobal("newKey", "updateValue");
     expect(injector.injectorDependencies["newKey"].get()).to.equal("updateValue");
   })
 
@@ -74,4 +92,6 @@ describe("Injector tests", () => {
     expect(newClass.val1.get()).to.equal("val1");
     expect(newClass.val_2$.get()  ).to.equal("val_2$");
   })
+
+
 })
