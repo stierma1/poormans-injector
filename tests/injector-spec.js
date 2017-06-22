@@ -16,6 +16,10 @@ describe("Injector tests", () => {
     return {val1, val_2$};
   }
 
+  async function mockAsyncFunction({val1, val_2$}){
+    return {val1, val_2$};
+  }
+
   it("should construct", () => {
     var injector = new Injector({});
     expect(injector).instanceof(Injector);
@@ -65,6 +69,10 @@ describe("Injector tests", () => {
   it("should parse function Strings", () => {
     var {isClass, name, params} = Injector.parseParams(mockFunction.toString());
 
+  })
+
+  it("should parse async function Strings", () => {
+    var {isClass, name, params} = Injector.parseParams(mockAsyncFunction.toString());
   })
 
   it("should inject params in class", () => {
