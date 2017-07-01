@@ -10,6 +10,10 @@ describe("Injector tests", () => {
       this.val1 = val1;
       this.val_2$ = val_2$;
     }
+
+    static test({val1, val_2$}){
+      return {val1, val_2$};
+    }
   }
 
   function mockFunction({val1, val_2$}){
@@ -73,6 +77,11 @@ describe("Injector tests", () => {
 
   it("should parse async function Strings", () => {
     var {isClass, name, params} = Injector.parseParams(mockAsyncFunction.toString());
+  })
+
+  it("should parse static function in class", () => {
+    var {isClass, name, params} = Injector.parseParams(MockClass.test.toString());
+
   })
 
   it("should inject params in class", () => {
